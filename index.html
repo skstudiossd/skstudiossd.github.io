@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SK Studios — Automotive & Aviation Designs</title>
+  <meta name="description" content="Original poster designs by Shanthanu Kelso celebrating the machines that defined speed.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,600;0,700;1,700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    :root {
+      --orange:  #D64A32;
+      --cream:   #E7D1C3;
+      --teal:    #617F8A;
+      --bg:      #060604;
+      --surface: #0d0d0b;
+      --surface2:#131311;
+      --acc-lo:  rgba(214,74,50,0.10);
+      --text:    #F0EDE6;
+      --muted:   #6a6860;
+      --border:  #1a1a17;
+      --border2: #272724;
+      --nav-h:   68px;
+      --display: 'Rockwell','Rockwell Nova','Zilla Slab',Georgia,serif;
+      --body:    'Avenir Next','Avenir','Century Gothic','Nunito Sans',sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: repeating-linear-gradient(-28deg, transparent 0, transparent 34px, rgba(255,255,255,0.009) 34px, rgba(255,255,255,0.009) 36px);
+      color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.65; overflow-x: hidden;
+    }
+
+    /* PARTICLE CANVAS */
+    #particle-canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none;
+    }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; z-index: 200; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+    nav.scrolled { background: rgba(6,6,4,0.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-color: var(--border); }
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
+    /* Greyscale logo at top — matches footer treatment */
+    .nav-logo { height: 44px; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.82; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--nav-h) 3rem 5rem; position: relative; overflow: hidden; z-index: 2; }
+    .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 72px 72px; opacity: .45; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(transparent, var(--bg)); pointer-events: none; }
+    .hero-stripes { position: absolute; inset: 0; pointer-events: none; z-index: 0; background: repeating-linear-gradient(-18deg, transparent 0, transparent 55px, rgba(214,74,50,0.065) 55px, rgba(214,74,50,0.065) 95px, transparent 95px, transparent 140px, rgba(214,74,50,0.035) 140px, rgba(214,74,50,0.035) 168px); -webkit-mask: linear-gradient(105deg, transparent 25%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.9) 100%); mask: linear-gradient(105deg, transparent 25%, rgba(0,0,0,0.7) 65%, rgba(0,0,0,0.9) 100%); }
+    .hero-speedlines { position: absolute; inset: 0; pointer-events: none; z-index: 0; background: repeating-linear-gradient(-18deg, transparent 0, transparent 20px, rgba(255,255,255,0.014) 20px, rgba(255,255,255,0.014) 21px); -webkit-mask: linear-gradient(105deg, transparent 40%, rgba(0,0,0,0.5) 80%); mask: linear-gradient(105deg, transparent 40%, rgba(0,0,0,0.5) 80%); }
+    .hero-corner-stripe { position: absolute; top: 0; right: 0; width: 220px; height: 100%; pointer-events: none; z-index: 0; background: repeating-linear-gradient(-18deg, transparent 0, transparent 28px, rgba(214,74,50,0.09) 28px, rgba(214,74,50,0.09) 44px); -webkit-mask: linear-gradient(to left, rgba(0,0,0,0.6), transparent); mask: linear-gradient(to left, rgba(0,0,0,0.6), transparent); }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow { font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; }
+    .hero-title { font-family: var(--display); font-weight: 700; font-size: clamp(3.5rem,9vw,9rem); line-height: .92; margin-bottom: 2rem; }
+    .hero-title em { font-style: italic; color: var(--orange); }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 44ch; line-height: 1.85; }
+    .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .btn-primary { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: .85rem 2rem; background: var(--orange); border: 1px solid var(--orange); color: #fff; text-decoration: none; transition: opacity .2s; }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: .85rem 2rem; background: transparent; border: 1px solid var(--border2); color: var(--text); text-decoration: none; transition: border-color .2s, background .2s; }
+    .btn-ghost:hover { border-color: var(--muted); background: var(--surface); }
+
+    /* SCROLL DOWN HINT — animated cascading chevrons, fades on scroll */
+    .scroll-hint {
+      position: absolute; right: 3rem; bottom: 3.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      z-index: 2;
+      transition: opacity 0.7s ease;
+    }
+    .scroll-hint.hidden { opacity: 0; pointer-events: none; }
+    .sh-chevron {
+      width: 18px; height: 18px;
+      border-right: 2px solid var(--orange);
+      border-bottom: 2px solid var(--orange);
+      transform: rotate(45deg);
+      opacity: 0;
+      animation: chevronCascade 1.8s ease-in-out infinite;
+    }
+    .sh-chevron:nth-child(1) { animation-delay: 0s; }
+    .sh-chevron:nth-child(2) { animation-delay: 0.22s; }
+    .sh-chevron:nth-child(3) { animation-delay: 0.44s; }
+    @keyframes chevronCascade {
+      0%   { opacity: 0; transform: rotate(45deg) translate(-3px,-3px); }
+      40%  { opacity: 1; }
+      100% { opacity: 0; transform: rotate(45deg) translate(5px,5px); }
+    }
+
+    /* MARQUEE */
+    .stripe { background: var(--orange); padding: 1.1rem 0; overflow: hidden; position: relative; z-index: 2; }
+    .stripe-inner { display: flex; animation: marquee 30s linear infinite; white-space: nowrap; width: max-content; }
+    .stripe-text { font-family: var(--display); font-weight: 700; font-size: .9rem; letter-spacing: .18em; text-transform: uppercase; color: #fff; flex-shrink: 0; padding: 0 3rem; }
+    .stripe-dot { color: rgba(255,255,255,.35); margin: 0 .3rem; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* SECTIONS */
+    .section { padding: 7rem 3rem; border-top: 1px solid var(--border); position: relative; z-index: 2; }
+    .section::after { content: ''; position: absolute; top: 0; right: 0; width: 180px; height: 100%; pointer-events: none; background: repeating-linear-gradient(-18deg, transparent 0, transparent 40px, rgba(214,74,50,0.025) 40px, rgba(214,74,50,0.025) 56px); -webkit-mask: linear-gradient(to left, rgba(0,0,0,0.5), transparent 80%); mask: linear-gradient(to left, rgba(0,0,0,0.5), transparent 80%); }
+    .section-label { font-family: var(--body); font-size: .63rem; font-weight: 600; letter-spacing: .34em; text-transform: uppercase; color: var(--orange); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; width: 36px; height: 1px; background: var(--orange); opacity: .4; flex-shrink: 0; }
+
+    /* GALLERY */
+    .gallery-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem; }
+    /* Increased line-height so "Original" and "Designs" don't intersect */
+    .gallery-head h2 { font-family: var(--display); font-weight: 700; font-size: clamp(2.5rem,6vw,5.5rem); line-height: 1.08; }
+    .filter-row { display: flex; gap: .5rem; }
+    .filter-btn { font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: .4rem 1.1rem; background: transparent; border: 1px solid var(--border2); color: var(--muted); transition: all .2s; }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--orange); color: var(--text); background: var(--acc-lo); }
+
+    /* Sort dropdown */
+    .sort-row { display: flex; align-items: center; gap: .5rem; }
+    .sort-row label { font-size: .6rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    #sort-select { font-family: var(--body); font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; padding: .4rem 1.5rem .4rem .6rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); appearance: none; cursor: pointer; border-radius: 0; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .poster-card { position: relative; }
+    .poster-card.hidden { display: none; }
+    .poster-wrap { position: relative; overflow: hidden; aspect-ratio: 1/1.41; background: var(--surface); border: 1px solid var(--border); cursor: zoom-in; }
+    .poster-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s cubic-bezier(.25,.46,.45,.94); pointer-events: none; }
+    .poster-card:hover .poster-wrap img { transform: scale(1.04); }
+    .poster-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .poster-card:hover .poster-overlay { opacity: 1; }
+    .overlay-action { font-family: var(--body); font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: .7rem 1.75rem; border: 1px solid var(--text); background: transparent; color: var(--text); pointer-events: none; }
+    .poster-meta { padding: .85rem 0 .2rem; display: flex; justify-content: space-between; align-items: baseline; }
+    .poster-meta-name { font-family: var(--display); font-size: 1rem; font-weight: 600; }
+    .poster-meta-tag { font-family: var(--body); font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--orange); }
+    .poster-meta-price { font-size: .8rem; color: var(--muted); font-weight: 300; }
+
+    /* DIVIDER */
+    .section-divider { margin: 5rem 0 4rem; display: flex; align-items: center; gap: 1.5rem; }
+    .section-divider::before, .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .section-divider span { font-family: var(--display); font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+
+    /* REQUEST FORM */
+    .request-block { max-width: 680px; margin: 0 auto; text-align: center; }
+    .request-title { font-family: var(--display); font-weight: 700; font-size: clamp(2rem,4vw,3.5rem); line-height: .95; margin-bottom: 1.25rem; }
+    .request-title span { color: var(--orange); }
+    .request-sub { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 46ch; margin: 0 auto 2.5rem; line-height: 1.85; }
+    .request-form { text-align: left; display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+    .form-field label { font-family: var(--body); font-size: .65rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+    .form-field input, .form-field select, .form-field textarea { font-family: var(--body); font-size: .9rem; padding: .75rem 1rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); outline: none; transition: border-color .2s; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--orange); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+    .form-field select option { background: var(--surface2); color: var(--text); }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-submit { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: .9rem 2.5rem; background: var(--orange); border: 1px solid var(--orange); color: #fff; transition: opacity .2s; align-self: flex-start; }
+    .form-submit:hover { opacity: .85; }
+    .form-note { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: relative; overflow: hidden; z-index: 2; }
+    footer::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(-18deg, transparent 0, transparent 40px, rgba(214,74,50,0.018) 40px, rgba(214,74,50,0.018) 54px); }
+    .footer-brand { display: flex; align-items: center; text-decoration: none; position: relative; }
+    .footer-logo { height: 36px; width: auto; opacity: .55; filter: brightness(0) invert(1); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: .65rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+
+    /* BACK TO TOP */
+    #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 46px; height: 46px; background: var(--orange); border: none; color: #fff; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; z-index: 150; transform: translateY(10px); }
+    #back-to-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    #back-to-top:hover { opacity: .85; }
+
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 500; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+    .lightbox.open { display: flex; }
+    .lightbox-inner { display: flex; gap: 2.5rem; align-items: flex-start; max-width: 1200px; width: 100%; max-height: calc(100vh - 3rem); }
+    .lb-image-area { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: .75rem; }
+    .lb-image-viewport { width: 100%; max-height: calc(100vh - 160px); overflow: hidden; position: relative; border: 1px solid var(--border2); background: var(--surface); display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1.41; }
+    #lb-img { width: 100%; height: 100%; object-fit: contain; transform-origin: center center; cursor: grab; user-select: none; -webkit-user-drag: none; }
+    #lb-img.grabbing { cursor: grabbing; }
+    .lb-zoom-controls { display: flex; gap: .5rem; align-items: center; }
+    .lb-zoom-btn { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .35rem .9rem; background: transparent; border: 1px solid var(--border2); color: var(--muted); transition: all .2s; }
+    .lb-zoom-btn:hover { border-color: var(--text); color: var(--text); }
+    .lb-hint { font-size: .63rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; font-family: var(--body); }
+    .lightbox-info { width: 260px; flex-shrink: 0; padding-top: .25rem; }
+    .lightbox-tag { font-family: var(--body); font-size: .63rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--orange); margin-bottom: .75rem; }
+    .lightbox-title { font-family: var(--display); font-size: 2rem; font-weight: 700; line-height: .95; margin-bottom: .75rem; }
+    .lightbox-dims { font-family: var(--body); font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; }
+    .lightbox-desc { font-size: .9rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 2rem; }
+    .lightbox-cta { font-family: var(--body); font-size: .7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: .75rem 1.5rem; background: var(--orange); border: 1px solid var(--orange); color: #fff; cursor: pointer; transition: opacity .2s; display: inline-block; text-decoration: none; }
+    .lightbox-cta:hover { opacity: .85; }
+    .lightbox-close { position: fixed; top: 1.5rem; right: 1.5rem; background: none; border: 1px solid var(--border2); color: var(--text); width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: border-color .2s; z-index: 10; }
+    .lightbox-close:hover { border-color: var(--muted); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media(max-width:960px) { .gallery-grid { grid-template-columns: repeat(2,1fr); } .form-row { grid-template-columns: 1fr; } .lightbox-inner { flex-direction: column; align-items: center; } .lightbox-info { width: 100%; max-width: 500px; } .lb-image-viewport { max-height: 50vh; } }
+    @media(max-width:640px) { nav { padding: 0 1.5rem; } .hero { padding: var(--nav-h) 1.5rem 4rem; } .section { padding: 5rem 1.5rem; } .gallery-grid { grid-template-columns: 1fr; } .gallery-head { align-items: flex-start; } footer { flex-direction: column; text-align: center; } #back-to-top { bottom: 1.25rem; right: 1.25rem; } .scroll-hint { right: 1.5rem; } }
+  </style>
+</head>
+<body>
+
+<!-- PARTICLE CANVAS — persists entire site -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<nav id="nav">
+  <a href="#top" class="nav-brand" aria-label="SK Studios home">
+    <img src="images/sk-logo.png" alt="SK Studios" class="nav-logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#gallery" id="nav-gallery">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="hero" id="top">
+  <div class="hero-stripes" aria-hidden="true"></div>
+  <div class="hero-speedlines" aria-hidden="true"></div>
+  <div class="hero-corner-stripe" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">SK Studios — Original Design Prints</p>
+    <h1 class="hero-title">Excellence<br><em>Expressed</em><br>in Art.</h1>
+    <p class="hero-sub">Hand-crafted poster designs celebrating the icons that defined speed — from endurance racers to supersonic fighters to the men and women who made them so special.</p>
+    <div class="hero-actions">
+      <a href="#gallery" class="btn-primary">View the Collection</a>
+      <a href="#request" class="btn-ghost">Request a Design</a>
+    </div>
+  </div>
+  <!-- Animated scroll-down chevrons — fades once user scrolls -->
+  <div class="scroll-hint" id="scroll-hint" aria-hidden="true">
+    <div class="sh-chevron"></div>
+    <div class="sh-chevron"></div>
+    <div class="sh-chevron"></div>
+  </div>
+</div>
+
+<div class="stripe" aria-hidden="true">
+  <div class="stripe-inner">
+    <span class="stripe-text">SK Studios <span class="stripe-dot">✦</span> Automotive &amp; Aviation Designs <span class="stripe-dot">✦</span> Original Prints <span class="stripe-dot">✦</span></span>
+    <span class="stripe-text">SK Studios <span class="stripe-dot">✦</span> Automotive &amp; Aviation Designs <span class="stripe-dot">✦</span> Original Prints <span class="stripe-dot">✦</span></span>
+    <span class="stripe-text">SK Studios <span class="stripe-dot">✦</span> Automotive &amp; Aviation Designs <span class="stripe-dot">✦</span> Original Prints <span class="stripe-dot">✦</span></span>
+  </div>
+</div>
+
+<section class="section" id="gallery">
+  <div class="section-label">The Collection</div>
+  <div class="gallery-head reveal">
+    <h2>Original<br>Designs</h2>
+    <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="automotive">Cars</button>
+        <button class="filter-btn" data-filter="aviation">Jets</button>
+      </div>
+      <div class="sort-row">
+        <label for="sort-select">Sort:</label>
+        <select id="sort-select">
+          <option value="default">Default</option>
+          <option value="az">A–Z</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-grid" id="gallery-grid">
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Ferrari 812 GTS" data-date="20260207" data-size="12" data-tag="Automotive" data-desc="789 hp naturally aspirated V12. The 812 GTS is the last great front-engine Ferrari — open-air, emotional, and unmistakably Italian.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/812-gts.jpg" alt="Ferrari 812 GTS">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Ferrari 812 GTS</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="aviation" data-name="F-16 Fighting Falcon" data-date="20251105" data-size="12" data-tag="Aviation" data-desc="131.2 kN thrust. Over 4,600 built. The world's most versatile and combat-proven fighter jet — still serving in over 25 nations.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/f16-falcon.jpg" alt="F-16 Fighting Falcon">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">F-16 Fighting Falcon</span><span class="poster-meta-tag">Jet</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Mercedes-AMG ONE" data-date="20251103" data-size="12" data-tag="Automotive" data-desc="1,063 hp of Formula 1 engineering on road-legal rubber. Set the Nürburgring production car record at 6:35.18 in 2022.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/amg-one.jpg" alt="Mercedes-AMG ONE">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Mercedes-AMG ONE</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="aviation" data-name="F-22 Raptor" data-date="20251107" data-size="12" data-tag="Aviation" data-desc="Mach 2.25. 312 kN of thrust. The pinnacle of fifth-generation air superiority — designed to dominate the skies unseen.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/f22-raptor.jpg" alt="F-22 Raptor">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">F-22 Raptor</span><span class="poster-meta-tag">Jet</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Ferrari LaFerrari" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="950 hp V12 with HY-KERS. The first hybridized Ferrari — proof that electrification can deepen emotion rather than dilute it.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/trinity-ferrari.jpg" alt="Ferrari LaFerrari">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Ferrari LaFerrari</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="McLaren P1" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="903 hp twin-turbo hybrid. British engineering at its most audacious — every surface shaped by airflow and track-born downforce.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/trinity-mclaren.jpg" alt="McLaren P1">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">McLaren P1</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Porsche 918 Spyder" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="887 hp hybrid V8 with dual electric motors. The only hybrid hypercar capable of silent cruising and Nürburgring record fury.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/trinity-porsche.jpg" alt="Porsche 918 Spyder">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Porsche 918 Spyder</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Maserati MC12" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="621 hp NA V12. Maserati's triumphant return to GT racing — Italian elegance meets Le Mans-capable endurance engineering.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/maserati-mc12.jpg" alt="Maserati MC12">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Maserati MC12</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="McLaren Senna" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="789 hp track-focused machine. Named for Ayrton Senna — every vent, surface, and curve engineered purely for aerodynamic purpose.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/mclaren-senna.jpg" alt="McLaren Senna">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">McLaren Senna</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Rimac Nevera" data-date="20251105" data-size="12" data-tag="Automotive" data-desc="1,914 hp across four electric motors. Holder of 20+ world records — redefining what a road car can be in the electric era.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/rimac-nevera.jpg" alt="Rimac Nevera">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Rimac Nevera</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Volkswagen Beetle" data-date="20260225" data-size="12" data-tag="Automotive" data-desc="60 hp. Air-cooled simplicity. The people's car — honest engineering that charmed the world across seven decades.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/vw-beetle.jpg" alt="Volkswagen Beetle">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Volkswagen Beetle</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Volkswagen Golf GTI" data-date="20260225" data-size="12" data-tag="Automotive" data-desc="241 hp hot hatch. Nearly 50 years defining the perfect intersection of everyday usability and genuine driving excitement.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/vw-golf.jpg" alt="Volkswagen Golf GTI">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Volkswagen Golf GTI</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Pagani Zonda R" data-date="20251105" data-size="12" data-tag="Automotive" data-desc="750 hp NA V12. Track-only. Built where speed and craftsmanship exist in perfect harmony — Pagani's obsession made physical.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/zonda-r.jpg" alt="Pagani Zonda R">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Pagani Zonda R</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+    <div class="poster-card reveal" data-category="automotive" data-name="Corvette ZR1X" data-date="20260112" data-size="12" data-tag="Automotive" data-desc="1,250 hp electrified all-wheel drive hypercar. America's definitive answer to the world — the next generation of Corvette.">
+      <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
+        <img src="images/corvette-zr1x.jpg" alt="Corvette ZR1X">
+        <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
+      </div>
+      <div class="poster-meta"><span class="poster-meta-name">Corvette ZR1X</span><span class="poster-meta-tag">Car</span></div>
+      <div class="poster-meta-price">12×18 in · Coming Soon</div>
+    </div>
+
+  </div>
+
+  <div class="section-divider"><span>Request a Custom Design</span></div>
+  <div class="request-block" id="request">
+    <h2 class="request-title reveal">Don't see your<br><span>favorites?</span></h2>
+    <p class="request-sub reveal">Have a specific car, jet, or subject in mind? Send a request and I'll let you know if it fits the collection.</p>
+    <form class="request-form reveal" id="request-form" onsubmit="handleRequest(event)">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="req-name">Your Name</label>
+          <input type="text" id="req-name" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="form-field">
+          <label for="req-email">Email Address</label>
+          <input type="email" id="req-email" name="email" placeholder="you@email.com" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="req-category">Category</label>
+        <select id="req-category" name="category" required>
+          <option value="" disabled selected>Select a category…</option>
+          <option value="Car">Car / Supercar / Hypercar</option>
+          <option value="Jet">Fighter Jet / Military Aircraft</option>
+          <option value="Motorsport">Motorsport / Race Car</option>
+          <option value="Classic">Classic / Vintage Vehicle</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="req-subject">What would you like?</label>
+        <input type="text" id="req-subject" name="subject" placeholder="e.g. Bugatti Veyron, SR-71 Blackbird, 1967 Shelby GT500…" required>
+      </div>
+      <div class="form-field">
+        <label for="req-notes">Additional Notes (optional)</label>
+        <textarea id="req-notes" name="notes" placeholder="Any specific angle, color scheme, era, or detail you have in mind…"></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Request</button>
+      <p class="form-note" id="req-note">All requests are reviewed — I'll reply if your subject fits the collection.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#top" class="footer-brand" aria-label="SK Studios">
+    <img src="images/sk-logo.png" alt="SK Studios" class="footer-logo">
+  </a>
+  <ul class="footer-links">
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#request">Request</a></li>
+  </ul>
+  <p class="footer-copy">SK Studios · Shanthanu Kelso</p>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Design detail">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <div class="lightbox-inner">
+    <div class="lb-image-area">
+      <div class="lb-image-viewport" id="lb-viewport">
+        <img id="lb-img" src="" alt="" draggable="false">
+      </div>
+      <div class="lb-zoom-controls">
+        <button class="lb-zoom-btn" onclick="zoomLb(1.25)">+ Zoom In</button>
+        <button class="lb-zoom-btn" onclick="resetLbTransform()">↺ Reset</button>
+        <button class="lb-zoom-btn" onclick="zoomLb(0.8)">− Zoom Out</button>
+      </div>
+      <p class="lb-hint">Scroll to zoom · Drag to pan · Double-click to reset</p>
+    </div>
+    <div class="lightbox-info">
+      <div class="lightbox-tag" id="lb-tag"></div>
+      <h3 class="lightbox-title" id="lb-title"></h3>
+      <div class="lightbox-dims">12 × 18 in · Fine-Art Print</div>
+      <p class="lightbox-desc" id="lb-desc"></p>
+      <a href="#request" class="lightbox-cta" onclick="closeLightbox()">Request This Design</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PARTICLE BACKGROUND ── */
+(function(){
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let mouse = { x: -9999, y: -9999 };
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  const COUNT = 90, CURSOR_R = 160, CONNECT_D = 130;
+  const pts = [];
+  for (let i = 0; i < COUNT; i++) {
+    pts.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - .5) * .15,
+      vy: (Math.random() - .5) * .15,
+      r: Math.random() * 1.4 + .7
+    });
+  }
+
+  function dm(p) { return Math.hypot(p.x - mouse.x, p.y - mouse.y); }
+
+  function frame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      const d = dm(p);
+      if (d < CURSOR_R) {
+        const a = Math.atan2(p.y - mouse.y, p.x - mouse.x);
+        const f = (CURSOR_R - d) / CURSOR_R * 0.004;
+        p.vx += Math.cos(a) * f; p.vy += Math.sin(a) * f;
+      }
+      const spd = Math.hypot(p.vx, p.vy);
+      if (spd > 0.5) { p.vx = p.vx/spd*0.5; p.vy = p.vy/spd*0.5; }
+    }
+
+    /* Connections */
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist > CONNECT_D) continue;
+        const near = dm(pts[i]) < CURSOR_R || dm(pts[j]) < CURSOR_R;
+        const a = (1 - dist/CONNECT_D) * (near ? .42 : .06);
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x, pts[i].y);
+        ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.strokeStyle = `rgba(210,210,210,${a})`;
+        ctx.lineWidth = near ? .8 : .5;
+        ctx.stroke();
+      }
+    }
+
+    /* Dots */
+    for (const p of pts) {
+      const d = dm(p), near = d < CURSOR_R;
+      const a = near ? .65 + (1 - d/CURSOR_R)*.3 : .14;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * (near ? 1.4 : 1), 0, Math.PI*2);
+      ctx.fillStyle = `rgba(215,215,210,${a})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* ── NAV ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+/* ── SCROLL HINT — fade out on scroll ── */
+const scrollHint = document.getElementById('scroll-hint');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) scrollHint.classList.add('hidden');
+}, { passive: true });
+
+/* ── BACK TO TOP ── */
+const btt = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400), { passive: true });
+btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = [...e.target.parentElement.children].indexOf(e.target);
+    setTimeout(() => e.target.classList.add('in'), Math.min(i * 75, 400));
+    ro.unobserve(e.target);
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ── GALLERY FILTER ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.poster-card').forEach(c => {
+      const show = f === 'all' || c.dataset.category === f;
+      c.classList.toggle('hidden', !show);
+      if (show) c.classList.add('in');
+    });
+  });
+});
+
+/* ── SORT ── */
+const sortSelect = document.getElementById('sort-select');
+const galleryGrid = document.getElementById('gallery-grid');
+sortSelect.addEventListener('change', () => {
+  const by = sortSelect.value;
+  const cards = Array.from(document.querySelectorAll('.poster-card'));
+  cards.sort((a, b) => {
+    if (by === 'az') return a.dataset.name.localeCompare(b.dataset.name);
+    if (by === 'newest') return parseInt(b.dataset.date) - parseInt(a.dataset.date);
+    return 0;
+  });
+  cards.forEach(c => galleryGrid.appendChild(c));
+});
+
+/* ── LIGHTBOX ── */
+let lbScale = 1, lbPanX = 0, lbPanY = 0, isDragging = false, dragStartX = 0, dragStartY = 0;
+function applyLbTransform() {
+  const img = document.getElementById('lb-img');
+  img.style.transform = `translate(${lbPanX}px,${lbPanY}px) scale(${lbScale})`;
+  img.style.cursor = lbScale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default';
+}
+function resetLbTransform() { lbScale=1; lbPanX=0; lbPanY=0; applyLbTransform(); }
+function zoomLb(f) { lbScale=Math.min(Math.max(lbScale*f,1),6); if(lbScale===1){lbPanX=0;lbPanY=0;} applyLbTransform(); }
+
+document.getElementById('lb-viewport').addEventListener('wheel', e => { e.preventDefault(); zoomLb(e.deltaY<0?1.12:.9); }, { passive: false });
+
+const lbImg = document.getElementById('lb-img');
+lbImg.addEventListener('mousedown', e => { if(lbScale<=1)return; isDragging=true; dragStartX=e.clientX-lbPanX; dragStartY=e.clientY-lbPanY; lbImg.classList.add('grabbing'); e.preventDefault(); });
+document.addEventListener('mousemove', e => { if(!isDragging)return; lbPanX=e.clientX-dragStartX; lbPanY=e.clientY-dragStartY; applyLbTransform(); });
+document.addEventListener('mouseup', () => { if(isDragging){isDragging=false;lbImg.classList.remove('grabbing');applyLbTransform();} });
+lbImg.addEventListener('dblclick', resetLbTransform);
+
+let lastTD=null;
+document.getElementById('lb-viewport').addEventListener('touchmove', e => { if(e.touches.length===2){e.preventDefault();const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(lastTD)zoomLb(d/lastTD);lastTD=d;} }, { passive:false });
+document.getElementById('lb-viewport').addEventListener('touchend', ()=>lastTD=null);
+
+function openLightbox(card) {
+  const img = card.querySelector('img');
+  document.getElementById('lb-img').src = img.src;
+  document.getElementById('lb-img').alt = img.alt;
+  document.getElementById('lb-tag').textContent = card.dataset.tag||'';
+  document.getElementById('lb-title').textContent = card.dataset.name||'';
+  document.getElementById('lb-desc').textContent = card.dataset.desc||'';
+  resetLbTransform();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  resetLbTransform();
+}
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+document.getElementById('lightbox').addEventListener('click', e => { if(e.target===e.currentTarget)closeLightbox(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape')closeLightbox(); });
+
+/* ── REQUEST FORM ── */
+function handleRequest(e) {
+  e.preventDefault();
+  const n = document.getElementById('req-note');
+  n.textContent = "✓ Request sent! I'll be in touch.";
+  n.style.color = '#617F8A';
+  e.target.reset();
+}
+</script>
+</body>
+</html>
