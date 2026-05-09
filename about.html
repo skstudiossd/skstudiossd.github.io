@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — SK Studios</title>
+  <meta name="description" content="About Shanthanu Kelso and SK Studios — original automotive and aviation poster designs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,600;0,700;1,700&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    :root {
+      --orange: #D64A32;
+      --cream:  #E7D1C3;
+      --teal:   #617F8A;
+      --bg:     #060604;
+      --surface:#0d0d0b;
+      --surface2:#131311;
+      --acc-lo: rgba(214,74,50,0.10);
+      --text:   #F0EDE6;
+      --muted:  #6a6860;
+      --border: #1a1a17;
+      --border2:#272724;
+      --nav-h:  68px;
+      --display:'Rockwell','Rockwell Nova','Zilla Slab',Georgia,serif;
+      --body:   'Avenir Next','Avenir','Century Gothic','Nunito Sans',sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: repeating-linear-gradient(-28deg, transparent 0, transparent 34px, rgba(255,255,255,0.009) 34px, rgba(255,255,255,0.009) 36px);
+      color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.65; overflow-x: hidden;
+    }
+
+    /* PARTICLE CANVAS */
+    #particle-canvas {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none;
+    }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; z-index: 200; background: rgba(6,6,4,0.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo { height: 44px; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.82; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    /* ABOUT HERO */
+    .about-hero { min-height: 50vh; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--nav-h) 3rem 4rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); z-index: 2; }
+    .about-hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 72px 72px; opacity: .4; pointer-events: none; }
+    .about-hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(transparent, var(--bg)); pointer-events: none; }
+    .ah-stripes { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(-18deg, transparent 0, transparent 55px, rgba(214,74,50,0.05) 55px, rgba(214,74,50,0.05) 90px); -webkit-mask: linear-gradient(105deg, transparent 30%, rgba(0,0,0,0.6) 70%); mask: linear-gradient(105deg, transparent 30%, rgba(0,0,0,0.6) 70%); }
+    .about-hero-content { position: relative; z-index: 1; }
+    .ah-eyebrow { font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    .ah-title { font-family: var(--display); font-weight: 700; font-size: clamp(3.5rem,8vw,7.5rem); line-height: .9; }
+    .ah-title em { font-style: italic; color: var(--orange); }
+
+    /* MAIN CONTENT */
+    .about-main { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; position: relative; z-index: 2; }
+
+    /* STORY GRID */
+    .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
+
+    .section-label { font-family: var(--body); font-size: .63rem; font-weight: 600; letter-spacing: .34em; text-transform: uppercase; color: var(--orange); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; width: 36px; height: 1px; background: var(--orange); opacity: .4; flex-shrink: 0; }
+
+    .about-heading { font-family: var(--display); font-weight: 700; font-size: clamp(2rem,4vw,3.75rem); line-height: .95; margin-bottom: 2rem; }
+    .about-heading em { font-style: italic; color: var(--orange); }
+
+    .about-body-text { color: var(--muted); font-weight: 300; font-size: 1.05rem; line-height: 1.9; }
+    .about-body-text p + p { margin-top: 1.25rem; }
+
+    /* Stats */
+    .about-stats { display: flex; gap: 3rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
+    .stat-num { font-family: var(--display); font-size: 2.75rem; font-weight: 700; line-height: 1; margin-bottom: .3rem; }
+    .stat-num span { color: var(--orange); }
+    .stat-label { font-family: var(--body); font-size: .63rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
+    /* Portrait frame wrapper */
+    .portrait-frame {
+      position: relative;
+      padding: 14px; /* room for corner brackets */
+    }
+
+    /* Corner L-brackets */
+    .bracket {
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--orange);
+      border-style: solid;
+      z-index: 2;
+      transition: width .3s ease, height .3s ease;
+    }
+    .portrait-frame:hover .bracket { width: 32px; height: 32px; }
+    .bracket-tl { top: 0; left: 0;  border-width: 2px 0 0 2px; }
+    .bracket-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+    .bracket-bl { bottom: 0; left: 0;  border-width: 0 0 2px 2px; }
+    .bracket-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+    /* Photo container */
+    .about-visual {
+      aspect-ratio: 4/5;
+      border: 1px solid rgba(214,74,50,0.22);
+      overflow: hidden;
+      position: relative;
+    }
+    .about-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .portrait-frame:hover .about-photo { transform: scale(1.03); }
+
+    /* Diagonal racing stripe overlay — very subtle */
+    .portrait-stripe {
+      position: absolute; inset: 0; pointer-events: none;
+      background: repeating-linear-gradient(
+        -18deg,
+        transparent 0, transparent 38px,
+        rgba(214,74,50,0.045) 38px, rgba(214,74,50,0.045) 52px
+      );
+    }
+
+    /* Name label at bottom of photo */
+    .portrait-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem 1rem .85rem;
+      background: linear-gradient(transparent, rgba(6,6,4,0.88));
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+    .pl-name {
+      font-family: var(--display);
+      font-size: .95rem; font-weight: 700;
+      color: var(--text); letter-spacing: .03em;
+    }
+    .pl-studio {
+      font-family: var(--body);
+      font-size: .58rem; font-weight: 600;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    /* REQUEST FORM SECTION */
+    .request-section { border-top: 1px solid var(--border); padding-top: 5rem; }
+    .request-block { max-width: 680px; margin: 0 auto; text-align: center; }
+    .request-title { font-family: var(--display); font-weight: 700; font-size: clamp(2rem,4vw,3.5rem); line-height: .95; margin-bottom: 1.25rem; }
+    .request-title span { color: var(--orange); }
+    .request-sub { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 46ch; margin: 0 auto 2.5rem; line-height: 1.85; }
+    .request-form { text-align: left; display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+    .form-field label { font-family: var(--body); font-size: .65rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+    .form-field input, .form-field select, .form-field textarea { font-family: var(--body); font-size: .9rem; padding: .75rem 1rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); outline: none; transition: border-color .2s; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--orange); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); }
+    .form-field select option { background: var(--surface2); color: var(--text); }
+    .form-field textarea { resize: vertical; min-height: 100px; }
+    .form-submit { font-family: var(--body); font-size: .72rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding: .9rem 2.5rem; background: var(--orange); border: 1px solid var(--orange); color: #fff; transition: opacity .2s; align-self: flex-start; }
+    .form-submit:hover { opacity: .85; }
+    .form-note { font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; position: relative; overflow: hidden; z-index: 2; }
+    footer::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(-18deg, transparent 0, transparent 40px, rgba(214,74,50,0.018) 40px, rgba(214,74,50,0.018) 54px); }
+    .footer-brand { display: flex; align-items: center; text-decoration: none; position: relative; }
+    .footer-logo { height: 36px; width: auto; opacity: .55; filter: brightness(0) invert(1); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: .65rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: .75rem; color: var(--muted); }
+
+    /* BACK TO TOP */
+    #back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 46px; height: 46px; background: var(--orange); border: none; color: #fff; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; z-index: 150; transform: translateY(10px); }
+    #back-to-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    #back-to-top:hover { opacity: .85; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      .about-intro { grid-template-columns: 1fr; gap: 3rem; }
+      .portrait-frame { padding: 10px; }
+      .about-visual { aspect-ratio: 3/2; max-height: 400px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media(max-width:640px) {
+      nav { padding: 0 1.5rem; }
+      .about-main { padding: 4rem 1.5rem; }
+      .about-hero { padding: var(--nav-h) 1.5rem 3rem; }
+      .about-stats { gap: 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-brand" aria-label="SK Studios home">
+    <img src="images/sk-logo.png" alt="SK Studios" class="nav-logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+</nav>
+
+<div class="about-hero" id="top">
+  <div class="ah-stripes" aria-hidden="true"></div>
+  <div class="about-hero-content">
+    <p class="ah-eyebrow">SK Studios · Shanthanu Kelso</p>
+    <h1 class="ah-title">Crafted from<br><em>obsession.</em></h1>
+  </div>
+</div>
+
+<div class="about-main">
+
+  <div class="about-intro">
+    <div>
+      <div class="section-label">The Story</div>
+      <h2 class="about-heading reveal">Every legend has<br>a <em>story</em><br>worth telling.</h2>
+      <div class="about-body-text reveal">
+        <p>Every design starts with an icon I can't stop thinking about; a car that redefined rulebooks, a fighter jet that paved the path for decades of technological innovation.</p>
+        <p>The goal of every design is always the same: capture what made the subject special. What made it stick with me enough to sink hours of perfecting a design of it. From the carefully selected photography, to the detailed descriptions and history of each star. Every design is meant to be inspected.</p>
+        <p>SK Studios is a one-man operation, with the sole purpose of turning passion into perfection.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div>
+          <div class="stat-num">14<span>+</span></div>
+          <div class="stat-label">Designs Made</div>
+        </div>
+        <div>
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Years Designing</div>
+        </div>
+        <div>
+          <div class="stat-num">100<span>%</span></div>
+          <div class="stat-label">Original Work</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portrait with decorative frame -->
+    <div class="portrait-frame reveal">
+      <div class="about-visual">
+        <img src="images/profile_portrait.jpg" alt="Shanthanu Kelso" class="about-photo">
+        <!-- Subtle racing stripe texture over photo -->
+        <div class="portrait-stripe" aria-hidden="true"></div>
+        <!-- Name label -->
+        <div class="portrait-label" aria-hidden="true">
+          <span class="pl-name">Shanthanu Kelso</span>
+          <span class="pl-studio">SK Studios</span>
+        </div>
+      </div>
+      <!-- Corner L-brackets -->
+      <span class="bracket bracket-tl" aria-hidden="true"></span>
+      <span class="bracket bracket-tr" aria-hidden="true"></span>
+      <span class="bracket bracket-bl" aria-hidden="true"></span>
+      <span class="bracket bracket-br" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <!-- REQUEST FORM — replaces old CTA strip -->
+  <div class="request-section">
+    <div class="request-block">
+      <h2 class="request-title reveal">Don't see your<br><span>favorites?</span></h2>
+      <p class="request-sub reveal">Have a specific car, jet, or subject in mind? Send a request and I'll let you know if it fits the collection.</p>
+      <form class="request-form reveal" id="request-form" onsubmit="handleRequest(event)">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="req-name">Your Name</label>
+            <input type="text" id="req-name" name="name" placeholder="John Smith" required>
+          </div>
+          <div class="form-field">
+            <label for="req-email">Email Address</label>
+            <input type="email" id="req-email" name="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="req-category">Category</label>
+          <select id="req-category" name="category" required>
+            <option value="" disabled selected>Select a category…</option>
+            <option value="Car">Car / Supercar / Hypercar</option>
+            <option value="Jet">Fighter Jet / Military Aircraft</option>
+            <option value="Motorsport">Motorsport / Race Car</option>
+            <option value="Classic">Classic / Vintage Vehicle</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="req-subject">What would you like?</label>
+          <input type="text" id="req-subject" name="subject" placeholder="e.g. Bugatti Veyron, SR-71 Blackbird, 1967 Shelby GT500…" required>
+        </div>
+        <div class="form-field">
+          <label for="req-notes">Additional Notes (optional)</label>
+          <textarea id="req-notes" name="notes" placeholder="Any specific angle, color scheme, era, or detail you have in mind…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Request</button>
+        <p class="form-note" id="req-note">All requests are reviewed — I'll reply if your subject fits the collection.</p>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="#top" class="footer-brand" aria-label="SK Studios">
+    <img src="images/sk-logo.png" alt="SK Studios" class="footer-logo">
+  </a>
+  <ul class="footer-links">
+    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="index.html#request">Request</a></li>
+  </ul>
+  <p class="footer-copy">SK Studios · Shanthanu Kelso</p>
+</footer>
+
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+/* ── PARTICLE BACKGROUND ── */
+(function(){
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let mouse = { x: -9999, y: -9999 };
+
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const heroEl = document.querySelector('.about-hero');
+
+  // Fade canvas out as the hero scrolls away, deactivate mouse past it
+  function updateCanvasOnScroll() {
+    const heroBottom = heroEl.getBoundingClientRect().bottom;
+    const fadeZone = heroEl.offsetHeight * 0.45;
+    const opacity = Math.max(0, Math.min(1, heroBottom / fadeZone));
+    canvas.style.opacity = opacity;
+    // Kill mouse interaction once hero is fully scrolled past
+    if (heroBottom <= 0) { mouse.x = -9999; mouse.y = -9999; }
+  }
+  window.addEventListener('scroll', updateCanvasOnScroll, { passive: true });
+  updateCanvasOnScroll();
+
+  window.addEventListener('mousemove', e => {
+    const heroBottom = heroEl.getBoundingClientRect().bottom;
+    if (heroBottom > 0) { mouse.x = e.clientX; mouse.y = e.clientY; }
+    else { mouse.x = -9999; mouse.y = -9999; }
+  });
+  window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  const COUNT = 90, CURSOR_R = 160, CONNECT_D = 130;
+  const pts = [];
+  for (let i = 0; i < COUNT; i++) {
+    pts.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - .5) * .15,
+      vy: (Math.random() - .5) * .15,
+      r: Math.random() * 1.4 + .7
+    });
+  }
+
+  function dm(p) { return Math.hypot(p.x - mouse.x, p.y - mouse.y); }
+
+  function frame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      const d = dm(p);
+      if (d < CURSOR_R) {
+        const a = Math.atan2(p.y - mouse.y, p.x - mouse.x);
+        const f = (CURSOR_R - d) / CURSOR_R * 0.004;
+        p.vx += Math.cos(a) * f; p.vy += Math.sin(a) * f;
+      }
+      const spd = Math.hypot(p.vx, p.vy);
+      if (spd > 0.5) { p.vx = p.vx/spd*0.5; p.vy = p.vy/spd*0.5; }
+    }
+
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const dist = Math.hypot(dx, dy);
+        if (dist > CONNECT_D) continue;
+        const near = dm(pts[i]) < CURSOR_R || dm(pts[j]) < CURSOR_R;
+        const a = (1 - dist/CONNECT_D) * (near ? .42 : .06);
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x, pts[i].y);
+        ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.strokeStyle = `rgba(210,210,210,${a})`;
+        ctx.lineWidth = near ? .8 : .5;
+        ctx.stroke();
+      }
+    }
+
+    for (const p of pts) {
+      const d = dm(p), near = d < CURSOR_R;
+      const a = near ? .65 + (1 - d/CURSOR_R)*.3 : .14;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * (near ? 1.4 : 1), 0, Math.PI*2);
+      ctx.fillStyle = `rgba(215,215,210,${a})`;
+      ctx.fill();
+    }
+
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+/* ── BACK TO TOP ── */
+const btt = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 300), { passive: true });
+btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ── SCROLL REVEAL ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const i = [...e.target.parentElement.children].indexOf(e.target);
+    setTimeout(() => e.target.classList.add('in'), Math.min(i * 100, 350));
+    ro.unobserve(e.target);
+  });
+}, { threshold: .1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ── REQUEST FORM ── */
+function handleRequest(e) {
+  e.preventDefault();
+  const n = document.getElementById('req-note');
+  n.textContent = "✓ Request sent! I'll be in touch.";
+  n.style.color = '#617F8A';
+  e.target.reset();
+}
+</script>
+</body>
+</html>
