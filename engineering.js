@@ -6,7 +6,7 @@
   let frame = 0;
   let hovering = false;
   let focused = false;
-  const startOrbit = '135deg 60deg 105%';
+  const startOrbit = '45deg 60deg 105%';
   function stopSpin() {
     cancelAnimationFrame(frame);
     frame = 0;
@@ -23,7 +23,7 @@
       const t = Math.min((now - start) / 6000, 1);
       // One full orbit per hover/focus, ending at the original three-quarter view.
       const eased = t * t * (3 - 2 * t);
-      preview.cameraOrbit = `${135 + 360 * eased}deg 60deg 105%`;
+      preview.cameraOrbit = `${45 + 360 * eased}deg 60deg 105%`;
       preview.jumpCameraToGoal();
       if (t < 1) frame = requestAnimationFrame(tick);
       else stopSpin();

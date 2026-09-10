@@ -102,3 +102,6 @@
  @media(max-width:600px) {.project-grid{grid-template-columns:1fr;}.photo-thumbs{grid-template-columns:repeat(4,minmax(0,1fr));}.engineering-intro{padding-top:3rem;}}
 
 [hidden] { display:none!important; }
+
+/* Light neutral stage keeps dark aircraft surfaces legible. */
+.fighter-cover, .model-frame, model-viewer { background: #c5c3bc; }
