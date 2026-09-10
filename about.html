@@ -205,6 +205,12 @@
       .about-stats { gap: 1.5rem; }
       footer { flex-direction: column; text-align: center; }
     }
+  
+    .contact-email { color: var(--text); font-size: 1rem; text-decoration-color: var(--orange); text-underline-offset: .4em; overflow-wrap: anywhere; transition: color .2s; }
+    .contact-email:hover { color: var(--orange); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
+    .request-block { scroll-margin-top: 6rem; }
+
   </style>
 </head>
 <body>
@@ -216,7 +222,8 @@
     <img src="images/sk-logo.png" alt="SK Studios" class="nav-logo">
   </a>
   <ul class="nav-links">
-    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="design.html#gallery">Gallery</a></li>
     <li><a href="about.html" class="active">About</a></li>
   </ul>
 </nav>
@@ -279,54 +286,23 @@
   <!-- REQUEST FORM — replaces old CTA strip -->
   <div class="request-section">
     <div class="request-block">
-      <h2 class="request-title reveal">Don't see your<br><span>favorites?</span></h2>
-      <p class="request-sub reveal">Have a specific car, jet, or subject in mind? Send a request and I'll let you know if it fits the collection.</p>
-      <form class="request-form reveal" id="request-form" onsubmit="handleRequest(event)">
-        <div class="form-row">
-          <div class="form-field">
-            <label for="req-name">Your Name</label>
-            <input type="text" id="req-name" name="name" placeholder="John Smith" required>
-          </div>
-          <div class="form-field">
-            <label for="req-email">Email Address</label>
-            <input type="email" id="req-email" name="email" placeholder="you@email.com" required>
-          </div>
-        </div>
-        <div class="form-field">
-          <label for="req-category">Category</label>
-          <select id="req-category" name="category" required>
-            <option value="" disabled selected>Select a category…</option>
-            <option value="Car">Car / Supercar / Hypercar</option>
-            <option value="Jet">Fighter Jet / Military Aircraft</option>
-            <option value="Motorsport">Motorsport / Race Car</option>
-            <option value="Classic">Classic / Vintage Vehicle</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="req-subject">What would you like?</label>
-          <input type="text" id="req-subject" name="subject" placeholder="e.g. Bugatti Veyron, SR-71 Blackbird, 1967 Shelby GT500…" required>
-        </div>
-        <div class="form-field">
-          <label for="req-notes">Additional Notes (optional)</label>
-          <textarea id="req-notes" name="notes" placeholder="Any specific angle, color scheme, era, or detail you have in mind…"></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send Request</button>
-        <p class="form-note" id="req-note">All requests are reviewed — I'll reply if your subject fits the collection.</p>
-      </form>
+      <h2 class="request-title">Get in <span>touch.</span></h2>
+    <p class="request-sub">Questions about my work? Send me an email.</p>
+    <a class="contact-email" href="mailto:shanthanukelso@gmail.com">shanthanukelso@gmail.com</a>
     </div>
   </div>
 
 </div>
 
 <footer>
-  <a href="#top" class="footer-brand" aria-label="SK Studios">
+  <a href="index.html" class="footer-brand" aria-label="SK Studios">
     <img src="images/sk-logo.png" alt="SK Studios" class="footer-logo">
   </a>
   <ul class="footer-links">
-    <li><a href="index.html#gallery">Gallery</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="design.html#gallery">Gallery</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="index.html#request">Request</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
   </ul>
   <p class="footer-copy">SK Studios · Shanthanu Kelso</p>
 </footer>
@@ -443,14 +419,8 @@ const ro = new IntersectionObserver(entries => {
 }, { threshold: .1 });
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-/* ── REQUEST FORM ── */
-function handleRequest(e) {
-  e.preventDefault();
-  const n = document.getElementById('req-note');
-  n.textContent = "✓ Request sent! I'll be in touch.";
-  n.style.color = '#617F8A';
-  e.target.reset();
-}
+
 </script>
 </body>
 </html>
+
