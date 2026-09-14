@@ -59,7 +59,6 @@
     .about-hero-content { position: relative; z-index: 1; }
     .ah-eyebrow { font-family: var(--body); font-size: .68rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
     .ah-title { font-family: var(--display); font-weight: 700; font-size: clamp(3.5rem,8vw,7.5rem); line-height: .9; }
-    .ah-title em { font-style: italic; color: var(--orange); }
 
     /* MAIN CONTENT */
     .about-main { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; position: relative; z-index: 2; }
@@ -71,7 +70,6 @@
     .section-label::after { content: ''; width: 36px; height: 1px; background: var(--orange); opacity: .4; flex-shrink: 0; }
 
     .about-heading { font-family: var(--display); font-weight: 700; font-size: clamp(2rem,4vw,3.75rem); line-height: .95; margin-bottom: 2rem; }
-    .about-heading em { font-style: italic; color: var(--orange); }
 
     .about-body-text { color: var(--muted); font-weight: 300; font-size: 1.05rem; line-height: 1.9; }
     .about-body-text p + p { margin-top: 1.25rem; }
@@ -157,7 +155,7 @@
     .request-section { border-top: 1px solid var(--border); padding-top: 5rem; }
     .request-block { max-width: 680px; margin: 0 auto; text-align: center; }
     .request-title { font-family: var(--display); font-weight: 700; font-size: clamp(2rem,4vw,3.5rem); line-height: .95; margin-bottom: 1.25rem; }
-    .request-title span { color: var(--orange); }
+
     .request-sub { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 46ch; margin: 0 auto 2.5rem; line-height: 1.85; }
     .request-form { text-align: left; display: flex; flex-direction: column; gap: 1rem; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
@@ -211,7 +209,9 @@
     a:focus-visible, button:focus-visible { outline: 2px solid var(--orange); outline-offset: 5px; }
     .request-block { scroll-margin-top: 6rem; }
 
-  </style>
+  
+    h1, h2, h3, h4, h5, h6 { color:var(--text); font-style:normal; }
+</style>
   <link rel="icon" type="image/png" href="images/sk-logo.png">
 </head>
 <body>
@@ -233,7 +233,7 @@
   <div class="ah-stripes" aria-hidden="true"></div>
   <div class="about-hero-content">
     <p class="ah-eyebrow">SK Studios · Shanthanu Kelso</p>
-    <h1 class="ah-title">Crafted from<br><em>obsession.</em></h1>
+    <h1 class="ah-title">Crafted from<br>obsession.</h1>
   </div>
 </div>
 
@@ -242,7 +242,7 @@
   <div class="about-intro">
     <div>
       <div class="section-label">The Story</div>
-      <h2 class="about-heading reveal">Every legend has<br>a <em>story</em><br>worth telling.</h2>
+      <h2 class="about-heading reveal">Every legend has<br>a story<br>worth telling.</h2>
       <div class="about-body-text reveal">
         <p>Every design starts with an icon I can't stop thinking about; a car that redefined rulebooks, a fighter jet that paved the path for decades of technological innovation.</p>
         <p>The goal of every design is always the same: capture what made the subject special. What made it stick with me enough to sink hours of perfecting a design of it. From the carefully selected photography, to the detailed descriptions and history of each star. Every design is meant to be inspected.</p>
@@ -287,7 +287,7 @@
   <!-- REQUEST FORM — replaces old CTA strip -->
   <div class="request-section">
     <div class="request-block">
-      <h2 class="request-title">Get in <span>touch.</span></h2>
+      <h2 class="request-title">Get in touch.</h2>
     <p class="request-sub">Questions about my work? Send me an email.</p>
     <a class="contact-email" href="mailto:shanthanukelso@gmail.com">shanthanukelso@gmail.com</a>
     </div>
