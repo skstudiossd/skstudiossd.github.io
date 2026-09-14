@@ -107,3 +107,24 @@
 .fighter-cover, .model-frame, model-viewer { background: #c5c3bc; }
 
     h1, h2, h3, h4, h5, h6 { color:var(--text); font-style:normal; }
+
+
+/* Echo the portrait frame on engineering covers: two diagonal corners only. */
+.project-cover::before,
+.project-cover::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--orange);
+  border-style: solid;
+  z-index: 3;
+  pointer-events: none;
+  transition: width .3s ease, height .3s ease;
+}
+.project-cover::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.project-cover::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+.project-cover:hover::before,
+.project-cover:hover::after,
+.project-cover:focus-visible::before,
+.project-cover:focus-visible::after { width: 32px; height: 32px; }
