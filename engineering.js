@@ -39,8 +39,10 @@
     document.addEventListener('visibilitychange', stopSpin);
   }
   document.querySelectorAll('model-viewer').forEach(model => {
+    const fallback = model.parentElement.querySelector(':scope > img');
     function loaded() {
       model.classList.add('ready');
+      if (fallback) fallback.hidden = true;
       if (model === preview) startSpin();
       if (model.id === 'fighter-detail') {
         document.getElementById('model-status').textContent = 'Interactive model ready.';
@@ -51,6 +53,7 @@
     if (model.loaded) loaded();
     model.addEventListener('error', () => {
       model.classList.remove('ready');
+      if (fallback) fallback.hidden = false;
       if (model.id === 'fighter-detail') {
         document.getElementById('model-status').textContent = 'The interactive model could not load. You can view the preview or download the model below.';
         document.getElementById('reset-model').hidden = true;
