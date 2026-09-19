@@ -104,7 +104,14 @@
 [hidden] { display:none!important; }
 
 /* Light neutral stage keeps dark aircraft surfaces legible. */
-.fighter-cover, .model-frame, model-viewer { background: #c5c3bc; }
+/* Orange-red drafting grid on the studio's near-black background. */
+.fighter-cover, .model-frame {
+ background-color: #0d0d0b;
+ background-image: linear-gradient(rgba(214,74,50,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(214,74,50,.22) 1px, transparent 1px), linear-gradient(rgba(214,74,50,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(214,74,50,.10) 1px, transparent 1px), radial-gradient(ellipse at center, #29211e, #060604);
+ background-size: 160px 160px, 160px 160px, 40px 40px, 40px 40px, 100% 100%;
+ background-position: center;
+}
+model-viewer { background: transparent; }
 
     h1, h2, h3, h4, h5, h6 { color:var(--text); font-style:normal; }
 
@@ -128,3 +135,4 @@
 .project-cover:hover::after,
 .project-cover:focus-visible::before,
 .project-cover:focus-visible::after { width: 32px; height: 32px; }
+
