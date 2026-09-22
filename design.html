@@ -291,11 +291,12 @@
 </style>
   <link rel="icon" type="image/png" href="images/sk-logo.png">
 <link rel="stylesheet" href="responsive.css">
+<script src="particles.js" defer></script>
 </head>
 <body>
 
 <!-- PARTICLE CANVAS — persists entire site -->
-<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
 
 <nav id="nav">
   <a href="index.html" class="nav-brand" aria-label="SK Studios home">
@@ -361,7 +362,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Ferrari 812 GTS" data-date="20260207" data-size="12" data-tag="Automotive" data-desc="789 hp naturally aspirated V12. The 812 GTS is the last great front-engine Ferrari — open-air, emotional, and unmistakably Italian.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/812-gts.jpg" alt="Ferrari 812 GTS">
+        <img src="images/previews/812-gts-480.webp" data-full-src="images/812-gts.jpg" srcset="images/previews/812-gts-480.webp 480w, images/previews/812-gts-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Ferrari 812 GTS" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Ferrari 812 GTS</span><span class="poster-meta-tag">Car</span></div>
@@ -370,7 +371,7 @@
 
     <div class="poster-card reveal" data-category="aviation" data-name="F-16 Fighting Falcon" data-date="20251105" data-size="12" data-tag="Aviation" data-desc="131.2 kN thrust. Over 4,600 built. The world's most versatile and combat-proven fighter jet — still serving in over 25 nations.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/f16-falcon.jpg" alt="F-16 Fighting Falcon">
+        <img src="images/previews/f16-falcon-480.webp" data-full-src="images/f16-falcon.jpg" srcset="images/previews/f16-falcon-480.webp 480w, images/previews/f16-falcon-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="F-16 Fighting Falcon" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">F-16 Fighting Falcon</span><span class="poster-meta-tag">Jet</span></div>
@@ -379,7 +380,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Mercedes-AMG ONE" data-date="20251103" data-size="12" data-tag="Automotive" data-desc="1,063 hp of Formula 1 engineering on road-legal rubber. Set the Nürburgring production car record at 6:35.18 in 2022.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/amg-one.jpg" alt="Mercedes-AMG ONE">
+        <img src="images/previews/amg-one-480.webp" data-full-src="images/amg-one.jpg" srcset="images/previews/amg-one-480.webp 480w, images/previews/amg-one-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Mercedes-AMG ONE" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Mercedes-AMG ONE</span><span class="poster-meta-tag">Car</span></div>
@@ -388,7 +389,7 @@
 
     <div class="poster-card reveal" data-category="aviation" data-name="F-22 Raptor" data-date="20251107" data-size="12" data-tag="Aviation" data-desc="Mach 2.25. 312 kN of thrust. The pinnacle of fifth-generation air superiority — designed to dominate the skies unseen.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/f22-raptor.jpg" alt="F-22 Raptor">
+        <img src="images/previews/f22-raptor-480.webp" data-full-src="images/f22-raptor.jpg" srcset="images/previews/f22-raptor-480.webp 480w, images/previews/f22-raptor-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="F-22 Raptor" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">F-22 Raptor</span><span class="poster-meta-tag">Jet</span></div>
@@ -397,7 +398,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Ferrari LaFerrari" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="950 hp V12 with HY-KERS. The first hybridized Ferrari — proof that electrification can deepen emotion rather than dilute it.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/trinity-ferrari.jpg" alt="Ferrari LaFerrari">
+        <img src="images/previews/trinity-ferrari-480.webp" data-full-src="images/trinity-ferrari.jpg" srcset="images/previews/trinity-ferrari-480.webp 480w, images/previews/trinity-ferrari-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Ferrari LaFerrari" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Ferrari LaFerrari</span><span class="poster-meta-tag">Car</span></div>
@@ -406,7 +407,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="McLaren P1" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="903 hp twin-turbo hybrid. British engineering at its most audacious — every surface shaped by airflow and track-born downforce.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/trinity-mclaren.jpg" alt="McLaren P1">
+        <img src="images/previews/trinity-mclaren-480.webp" data-full-src="images/trinity-mclaren.jpg" srcset="images/previews/trinity-mclaren-480.webp 480w, images/previews/trinity-mclaren-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="McLaren P1" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">McLaren P1</span><span class="poster-meta-tag">Car</span></div>
@@ -415,7 +416,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Porsche 918 Spyder" data-date="20251027" data-size="12" data-tag="Automotive" data-desc="887 hp hybrid V8 with dual electric motors. The only hybrid hypercar capable of silent cruising and Nürburgring record fury.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/trinity-porsche.jpg" alt="Porsche 918 Spyder">
+        <img src="images/previews/trinity-porsche-480.webp" data-full-src="images/trinity-porsche.jpg" srcset="images/previews/trinity-porsche-480.webp 480w, images/previews/trinity-porsche-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Porsche 918 Spyder" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Porsche 918 Spyder</span><span class="poster-meta-tag">Car</span></div>
@@ -424,7 +425,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Maserati MC12" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="621 hp NA V12. Maserati's triumphant return to GT racing — Italian elegance meets Le Mans-capable endurance engineering.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/maserati-mc12.jpg" alt="Maserati MC12">
+        <img src="images/previews/maserati-mc12-480.webp" data-full-src="images/maserati-mc12.jpg" srcset="images/previews/maserati-mc12-480.webp 480w, images/previews/maserati-mc12-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Maserati MC12" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Maserati MC12</span><span class="poster-meta-tag">Car</span></div>
@@ -433,7 +434,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="McLaren Senna" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="789 hp track-focused machine. Named for Ayrton Senna — every vent, surface, and curve engineered purely for aerodynamic purpose.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/mclaren-senna.jpg" alt="McLaren Senna">
+        <img src="images/previews/mclaren-senna-480.webp" data-full-src="images/mclaren-senna.jpg" srcset="images/previews/mclaren-senna-480.webp 480w, images/previews/mclaren-senna-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="McLaren Senna" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">McLaren Senna</span><span class="poster-meta-tag">Car</span></div>
@@ -442,7 +443,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Rimac Nevera" data-date="20251105" data-size="12" data-tag="Automotive" data-desc="1,914 hp across four electric motors. Holder of 20+ world records — redefining what a road car can be in the electric era.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/rimac-nevera.jpg" alt="Rimac Nevera">
+        <img src="images/previews/rimac-nevera-480.webp" data-full-src="images/rimac-nevera.jpg" srcset="images/previews/rimac-nevera-480.webp 480w, images/previews/rimac-nevera-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Rimac Nevera" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Rimac Nevera</span><span class="poster-meta-tag">Car</span></div>
@@ -451,7 +452,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Volkswagen Beetle" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="60 hp. Air-cooled simplicity. The people's car — honest engineering that charmed the world across seven decades.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/vw-beetle.jpg" alt="Volkswagen Beetle">
+        <img src="images/previews/vw-beetle-480.webp" data-full-src="images/vw-beetle.jpg" srcset="images/previews/vw-beetle-480.webp 480w, images/previews/vw-beetle-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Volkswagen Beetle" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Volkswagen Beetle</span><span class="poster-meta-tag">Car</span></div>
@@ -460,7 +461,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Volkswagen Golf GTI" data-date="20251107" data-size="12" data-tag="Automotive" data-desc="241 hp hot hatch. Nearly 50 years defining the perfect intersection of everyday usability and genuine driving excitement.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/vw-golf.jpg" alt="Volkswagen Golf GTI">
+        <img src="images/previews/vw-golf-480.webp" data-full-src="images/vw-golf.jpg" srcset="images/previews/vw-golf-480.webp 480w, images/previews/vw-golf-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Volkswagen Golf GTI" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Volkswagen Golf GTI</span><span class="poster-meta-tag">Car</span></div>
@@ -469,7 +470,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Pagani Zonda R" data-date="20251105" data-size="12" data-tag="Automotive" data-desc="750 hp NA V12. Track-only. Built where speed and craftsmanship exist in perfect harmony — Pagani's obsession made physical.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/zonda-r.jpg" alt="Pagani Zonda R">
+        <img src="images/previews/zonda-r-480.webp" data-full-src="images/zonda-r.jpg" srcset="images/previews/zonda-r-480.webp 480w, images/previews/zonda-r-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Pagani Zonda R" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Pagani Zonda R</span><span class="poster-meta-tag">Car</span></div>
@@ -478,7 +479,7 @@
 
     <div class="poster-card reveal" data-category="automotive" data-name="Corvette ZR1X" data-date="20260112" data-size="12" data-tag="Automotive" data-desc="1,250 hp electrified all-wheel drive hypercar. America's definitive answer to the world — the next generation of Corvette.">
       <div class="poster-wrap" onclick="openLightbox(this.closest('.poster-card'))">
-        <img src="images/corvette-zr1x.jpg" alt="Corvette ZR1X">
+        <img src="images/previews/corvette-zr1x-480.webp" data-full-src="images/corvette-zr1x.jpg" srcset="images/previews/corvette-zr1x-480.webp 480w, images/previews/corvette-zr1x-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Corvette ZR1X" loading="lazy" decoding="async">
         <div class="poster-overlay"><button class="overlay-action">View Design</button></div>
       </div>
       <div class="poster-meta"><span class="poster-meta-name">Corvette ZR1X</span><span class="poster-meta-tag">Car</span></div>
@@ -491,8 +492,8 @@
          data-variant-bordered="images/leclerc-border.jpg">
       <div class="poster-wrap has-variants" onclick="openLightbox(this.closest('.poster-card'))">
         <div class="variant-track" data-index="0">
-          <img class="v-img" src="images/leclerc-borderless.jpg" alt="Charles Leclerc — Borderless">
-          <img class="v-img" src="images/leclerc-border.jpg"     alt="Charles Leclerc — Bordered">
+          <img class="v-img" src="images/previews/leclerc-borderless-480.webp" data-full-src="images/leclerc-borderless.jpg" srcset="images/previews/leclerc-borderless-480.webp 480w, images/previews/leclerc-borderless-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Charles Leclerc — Borderless" loading="lazy" decoding="async">
+          <img class="v-img" src="images/previews/leclerc-border-480.webp" data-full-src="images/leclerc-border.jpg" srcset="images/previews/leclerc-border-480.webp 480w, images/previews/leclerc-border-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px"     alt="Charles Leclerc — Bordered" loading="lazy" decoding="async">
         </div>
         <div class="variant-dots">
           <span class="v-dot active"></span>
@@ -512,8 +513,8 @@
          data-variant-bordered="images/verstappen-border.jpg">
       <div class="poster-wrap has-variants" onclick="openLightbox(this.closest('.poster-card'))">
         <div class="variant-track" data-index="0">
-          <img class="v-img" src="images/verstappen-borderless.jpg" alt="Max Verstappen — Borderless">
-          <img class="v-img" src="images/verstappen-border.jpg"     alt="Max Verstappen — Bordered">
+          <img class="v-img" src="images/previews/verstappen-borderless-480.webp" data-full-src="images/verstappen-borderless.jpg" srcset="images/previews/verstappen-borderless-480.webp 480w, images/previews/verstappen-borderless-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px" alt="Max Verstappen — Borderless" loading="lazy" decoding="async">
+          <img class="v-img" src="images/previews/verstappen-border-480.webp" data-full-src="images/verstappen-border.jpg" srcset="images/previews/verstappen-border-480.webp 480w, images/previews/verstappen-border-960.webp 960w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 960px) calc((100vw - 96px)/2), 420px"     alt="Max Verstappen — Bordered" loading="lazy" decoding="async">
         </div>
         <div class="variant-dots">
           <span class="v-dot active"></span>
@@ -611,86 +612,7 @@
   if (document.fonts) document.fonts.ready.then(fitMarquee);
 })();
 
-/* ── PARTICLE BACKGROUND ── */
-(function(){
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let mouse = { x: -9999, y: -9999 };
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-
-  const COUNT = 90, CURSOR_R = 160, CONNECT_D = 130;
-  const pts = [];
-  for (let i = 0; i < COUNT; i++) {
-    pts.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - .5) * .15,
-      vy: (Math.random() - .5) * .15,
-      r: Math.random() * 1.4 + .7
-    });
-  }
-
-  function dm(p) { return Math.hypot(p.x - mouse.x, p.y - mouse.y); }
-
-  function frame() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (const p of pts) {
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width) p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
-      const d = dm(p);
-      if (d < CURSOR_R) {
-        const a = Math.atan2(p.y - mouse.y, p.x - mouse.x);
-        const f = (CURSOR_R - d) / CURSOR_R * 0.004;
-        p.vx += Math.cos(a) * f; p.vy += Math.sin(a) * f;
-      }
-      const spd = Math.hypot(p.vx, p.vy);
-      if (spd > 0.5) { p.vx = p.vx/spd*0.5; p.vy = p.vy/spd*0.5; }
-    }
-
-    /* Connections */
-    for (let i = 0; i < pts.length; i++) {
-      for (let j = i + 1; j < pts.length; j++) {
-        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
-        const dist = Math.hypot(dx, dy);
-        if (dist > CONNECT_D) continue;
-        const near = dm(pts[i]) < CURSOR_R || dm(pts[j]) < CURSOR_R;
-        const a = (1 - dist/CONNECT_D) * (near ? .42 : .06);
-        ctx.beginPath();
-        ctx.moveTo(pts[i].x, pts[i].y);
-        ctx.lineTo(pts[j].x, pts[j].y);
-        ctx.strokeStyle = `rgba(210,210,210,${a})`;
-        ctx.lineWidth = near ? .8 : .5;
-        ctx.stroke();
-      }
-    }
-
-    /* Dots */
-    for (const p of pts) {
-      const d = dm(p), near = d < CURSOR_R;
-      const a = near ? .65 + (1 - d/CURSOR_R)*.3 : .14;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r * (near ? 1.4 : 1), 0, Math.PI*2);
-      ctx.fillStyle = `rgba(215,215,210,${a})`;
-      ctx.fill();
-    }
-
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
+/* Particle animation is shared in particles.js. */
 
 /* ── NAV ── */
 const nav = document.getElementById('nav');
@@ -829,7 +751,7 @@ function openLightbox(card) {
     const track = card.querySelector('.variant-track');
     const idx   = parseInt(track.dataset.index) || 0;
     const imgs  = track.querySelectorAll('.v-img');
-    imgSrc = imgs[idx].src;
+    imgSrc = imgs[idx].dataset.fullSrc || imgs[idx].src;
     imgAlt = imgs[idx].alt;
     // Sync buttons
     const which = idx === 0 ? 'borderless' : 'bordered';
@@ -837,7 +759,7 @@ function openLightbox(card) {
     document.getElementById('lb-btn-bordered').classList.toggle('active', which === 'bordered');
   } else {
     const img = card.querySelector('img');
-    imgSrc = img.src; imgAlt = img.alt;
+    imgSrc = img.dataset.fullSrc || img.src; imgAlt = img.alt;
   }
 
   document.getElementById('lb-img').src = imgSrc;
@@ -882,5 +804,6 @@ document.addEventListener('keydown', e => { if(e.key==='Escape')closeLightbox();
 </script>
 </body>
 </html>
+
 
 

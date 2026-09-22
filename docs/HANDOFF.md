@@ -9,9 +9,9 @@ This is an agent workflow requirement, not a background automation. An agent mus
 Live site: https://skstudiossd.github.io/
 Repository: https://github.com/skstudiossd/skstudiossd.github.io
 Branch: main. Website source baseline verified for this edition:
-7eb699581fb5101d13f01ba703353a8f4987a1d7
-This documentation-only revision describes that website baseline. The containing documentation commit is available in Git history; a PDF cannot include its own final commit hash before that commit exists.
-Read current main and any newer owner instructions before editing. This PDF is a snapshot, not a replacement for live source. No redesign or website code changes are part of this handoff revision.
+768f09ff57b4e4b3c07fe157ad6fecf5d8b02a74
+This edition documents the Changes Notebook revision built on that baseline. The containing documentation commit is available in Git history; a PDF cannot include its own final commit hash before that commit exists.
+Read current main and any newer owner instructions before editing. This PDF is a snapshot, not a replacement for live source. The latest changes are recorded in the change log below.
 ## Purpose
 A personal showcase spanning engineering and graphic design. Visitors should explore the work. No storefront, commissions or sales are currently required. Contact uses email and LinkedIn, not a server-backed form.
 The owner is an aerospace engineering student at UC Merced with a long-term interest in Formula 1 aerodynamics. Keep communication direct and concise. Preserve supplied project facts and copy; ask about unspecified major layout changes.
@@ -27,13 +27,15 @@ Six HTML pages, plain CSS and vanilla JavaScript. GitHub Pages serves the reposi
 - rc-plane.html: photo gallery on the left, project description and facts on the right; previous/next buttons and thumbnail navigation.
 - engineering.css: shared engineering styling, model stage, project layout and corner frames.
 - engineering.js: hover orbit, model loading/error/fallback state, reset controls and RC gallery.
+- particles.js: shared interactive canvas on all six primary header areas, with one node per 14,000 CSS square pixels, device-pixel-ratio scaling capped at 2, local neighbor buckets and reduced-motion/offscreen pausing. Design retains its full-page canvas; other pages confine animation to their primary heading area.
 - responsive.css: shared final overrides, loaded by all six pages. Contact layout, touch targets, responsive headings, lightbox scrolling, wide-screen spacing and thumbnails.
 ## Assets and external dependencies
 - images/sk-logo.png: navigation, footer and browser icon source. images/profile_portrait.jpg: About photo.
 - images/engineering/rcplane1.jpg through rcplane11.jpg: eleven project photos; preserve their source content.
 - images/engineering/fighter-preview.png: transparent front three-quarter fallback image. The older fighter-preview.jpg remains in the repo but is not the active fallback.
 - models/fighter-concept.glb: supplied aircraft geometry. Do not replace or modify geometry without instruction.
-- Poster images live directly under images/. Driver designs have borderless and bordered image pairs.
+- Poster originals live directly under images/. Driver designs have borderless and bordered image pairs. images/previews/ contains 480px and 960px WebP variants; cards use lazy loading, async decoding, srcset/sizes and data-full-src. The lightbox opens original JPEGs, including the currently selected driver variant.
+- models/fighter-concept-edges.glb: display-only derivative containing original shaded triangles plus boundary/crease lines (28-degree threshold). Original GLB and download remain unchanged. Rebuild using scripts/build_model_edges.py (numpy); regenerate WebP previews with scripts/build_previews.py (Pillow).
 - Model viewer: @google/model-viewer 4.1.0 from jsDelivr, loaded as an ES module on the two fighter-viewer pages. CDN/network/WebGL failures must leave a useful fallback.
 ## Contact on all six pages
 Email: shanthanukelso@gmail.com (mailto link; opens the visitor's email app).
@@ -43,9 +45,9 @@ No message is sent by the site itself. The earlier fake request form and propose
 # Design and content contract
 ## Palette and typography
 Primary accent #D64A32; cream #E7D1C3; teal #617F8A.
-Background #060604; surfaces #0d0d0b and #131311; text #F0EDE6; muted body copy #9a9690; borders #1a1a17 and #272724.
+Background #060604; surfaces #0d0d0b and #131311; text #F0EDE6; muted body copy #c1bdb6 (brightened from #9a9690); borders #1a1a17 and #272724.
 Headlines: Rockwell / Rockwell Nova / Zilla Slab / Georgia / serif. Body: Avenir Next / Avenir / Century Gothic / Nunito Sans / sans-serif.
-All titles and headers stay upright and off-white. Do not restore italic or colored final words. Sharp corners; no rounded cards. No emoji or Unicode pictogram controls: use clean monochrome SVG/CSS icons. Gear icons should remain symmetric.
+Body text uses weight 400 for clarity. Title tracking is slightly increased (.005em generally; -.015em on previously tight engineering/home titles). All titles and headers stay upright and off-white. Do not restore italic or colored final words. Sharp corners; no rounded cards. No emoji or Unicode pictogram controls: use clean monochrome SVG/CSS icons. Gear icons should remain symmetric.
 ## Visual behavior
 Keep transitions subtle and subordinate to the work. No button scaling. Poster image hover may scale inside its wrapper. Grayscale engineering/design decorative icons roll out on home-card hover. Respect reduced-motion preferences.
 Orange diagonal racing stripes are an existing motif. Navigation logo is grayscale via brightness(0) invert(1), around .82 opacity; footer logo around .55 opacity. Do not show the color logo against the dark background.
@@ -54,7 +56,7 @@ Engineering preview corners use top-left and bottom-right brackets only. About p
 Home title: Shanthanu Kelso. Eyebrow: Full Portfolio.
 Graphic design title: Excellence Expressed in Art (no period; increased line spacing).
 Graphic design introduction: Poster designs celebrating the icons that defined speed. From endurance racers to supersonic fighters to the men and women who operated them.
-Marquee includes Original Artwork. Keep this owner-requested exception to the earlier preference for the word designs.
+Home intro lines were removed; Graphic Design card link reads Graphic design gallery. Engineering card subtitle reads Engineering work and projects. Marquee text is regular weight (400) and includes Original Artwork. Keep this owner-requested exception to the earlier preference for the word designs.
 Do not restore Full Collection or Two Projects tags. Preserve per-design dimensions; the catalogue's 2:3 poster wrappers do not authorize changing artwork dimensions or cropping source files.
 ## Catalogue behavior and inventory
 Full catalogue stays visible through All / Cars / Jets / Drivers filtering. Sort defaults to Newest and also offers A-Z. Cards use data-category, data-name, data-date, data-tag and data-desc. Newest compares YYYYMMDD dates.
@@ -70,7 +72,7 @@ RC Plane: May-June 2025. Shanthanu completed all design and most assembly. It fl
 Default camera orbit: 45deg 60deg 105%, showing the front three-quarter view.
 The engineering cover runs one 360-degree orbit over six seconds on hover/focus, then returns to the starting view. Rotation stops when leaving the card or hiding the document and respects reduced motion.
 The detail viewer supports drag rotation, scroll/pinch zoom, keyboard controls, Reset view and a GLB download. Its camera controls are enabled; the cover viewer does not intercept pointer input.
-The stage uses a near-black background with orange-red grid lines at 40px and 160px intervals and a subtle radial background. The model-viewer background is transparent so the grid shows through.
+The stage uses a near-black background with a single 32px orange-red drafting grid, replacing overlapping grid layers. The display GLB adds feature edges; it is not a full triangular wireframe. The RC cover uses object-fit:contain in its unchanged 4:3 frame to show the full photo with letterboxing. My contribution fact rows were removed from both projects; factual description text remains. Fighter Aircraft Concept has no trailing period. The model-viewer background is transparent so the grid shows through.
 ## Critical regression: duplicate aircraft image
 The fallback PNG is a sibling underneath model-viewer. With a transparent viewer background, it will remain visible unless explicitly hidden.
 In engineering.js, each viewer finds its parent's direct img child. On load, add ready and set fallback.hidden = true. On error, remove ready and set fallback.hidden = false. The initial model.loaded check handles a model loaded before listeners attach.
@@ -79,7 +81,7 @@ Do not remove that synchronization. Test both engineering.html and fighter-conce
 - Model absent: check GLB request, case-sensitive paths, CDN module, console/WebGL errors, ready state and fallback. Do not hide the fallback before the model actually loads.
 - Lightbox controls cut off: inspect responsive.css; outer .lightbox must scroll and inner content must not shrink into a capped height. Check phone portrait and landscape.
 - Marquee gaps/snapping: fitMarquee creates two identical groups, each wider than the viewport; animation travels one group width. Recalculate after resizing and fonts load. Do not revert to a short fixed repeat count.
-- About animation: particles fade out after the hero; do not extend them behind body text. Design page particles can persist full-page. Reduced motion hides the canvas and reveals content.
+- Particle animation: particles.js owns all canvases; do not restore the old inline engines. About and other non-design canvases are contained in their heading areas and stop offscreen. Design retains full-page animation. Reduced motion hides canvases and reveals content. Density follows CSS area, not device pixel count.
 - Tall RC thumbnails: thumbnail links have aspect-ratio:1 and overflow:hidden; images fill both dimensions with object-fit:cover.
 - Unexpected layout differences: inspect final responsive.css overrides as well as inline page CSS and engineering.css.
 ---
@@ -101,9 +103,17 @@ A PDF is portable context, not a source-code backup. The repo contains the code 
 2026-09-19 browser checks from the preceding editing session: six pages at 14 widths (320, 375, 600, 640, 700, 768, 850, 960, 961, 1024, 1440, 1920, 2560, 3440px). No detected heading overflow or navigation collisions; no JavaScript page errors in that audit.
 Additional checks: live model loaded over the grid; mobile and 812x375 landscape lightbox controls reachable; eleven RC thumbnails square; reduced-motion About content visible.
 Duplicate-image correction: Chrome verified both viewer pages hide fallback after model load, restore it on a simulated error and hide it again on a load event. Pages deployment run 35471424414 completed successfully.
-These are historical Chrome checks, not physical-device or Safari verification. On 2026-09-21, the current repository source was re-read for this document; the full website browser matrix was not rerun for this documentation-only change.
+These are historical Chrome checks, not physical-device or Safari verification. On 2026-09-21, the current repository source was re-read for this document; the Changes Notebook revision then passed the same six-page/14-width matrix in Chrome with no heading overflow, navigation collisions or page errors. Density and 2x-DPR sizing were checked at 375, 1440 and 3440px; image/variant originals, filters, model loading/reset and reduced motion also passed. Physical-device and Safari checks remain unperformed.
 ---
 # Change log and next-agent checklist
+## 2026-09-21 - Changes Notebook refinement
+Affected: all six HTML pages, responsive.css, new particles.js, images/previews/*.webp, models/fighter-concept-edges.glb, scripts/build_previews.py, scripts/build_model_edges.py and this handoff/PDF.
+Added size-aware interactive header constellations, slightly opened title spacing, brighter regular-weight body text and a regular-weight marquee. Removed home intro copy; changed the design card link. Showed the full RC cover in its existing frame, simplified the red/black grid, added shaded feature edges, removed contribution fact rows and the fighter title period.
+Eighteen original poster images total 106,208,211 bytes; one set of 480px WebP previews totals 613,224 bytes and 960px previews total 1,719,352 bytes. Originals are retained for full-resolution lightbox viewing. This is an asset-size comparison, not a measured network timing claim.
+Validation: six pages at 14 widths (320-3440px), particle density/DPR, original lightbox sources/variants, filtering, model loading/reset, fallback load/error states and reduced motion passed in Chrome. Mobile and desktop screenshots reviewed. PDF is regenerated and visually checked before commit. Deployment pending at export; verify the containing commit's Pages run separately.
+Owner supplied Engineering work and projects for the engineering card subtitle; applied exactly. No text was supplied for the empty Graphic Design item 3.
+---
+# Earlier changes and next steps
 ## 2026-09-21 - Establish maintained handoff
 Added docs/HANDOFF.md, docs/portfolio-handoff.pdf, scripts/build_handoff.py and root AGENTS.md. Purpose: let any successor agent edit or troubleshoot with current architecture, preferences, regression details and the standing instruction to update this handoff after every edit.
 Website baseline: 7eb699581fb5101d13f01ba703353a8f4987a1d7. No website code changes. The PDF is generated and visually reviewed before committing; publication of this documentation commit must be checked separately in GitHub Actions.
@@ -123,3 +133,4 @@ Created the central portfolio hub and engineering pages; integrated eleven RC ph
 ## Checklist for the next agent
 Read live source and this instruction. Make the requested edit. Verify the affected behavior. Update current-state sections. Append a dated entry with affected paths and evidence. Regenerate and inspect the PDF. Commit the handoff with the edit. Verify deployment and report any remaining limitations.
 Do not remove or weaken the standing instruction unless Shanthanu explicitly changes it.
+

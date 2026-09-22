@@ -53,3 +53,27 @@
 
 .photo-thumbs a { aspect-ratio: 1; overflow: hidden; }
 .photo-thumbs img { width: 100%; height: 100%; object-fit: cover; }
+
+
+/* Notebook refinements: readable body copy and slightly more open titles. */
+:root { --muted: #c1bdb6; }
+body { font-weight: 400; }
+.intro-copy, .panel-copy, .hero-sub, .about-body-text, .request-sub,
+.lightbox-desc, .poster-meta-price, .project-description p, .project-facts dd { font-weight: 400; }
+h1, h2, h3, h4, h5, h6 { letter-spacing: .005em; }
+.intro h1, .engineering-intro h1, .project-description h1 { letter-spacing: -.015em; }
+.stripe-text { font-weight: 400; }
+.rc-cover img { object-fit: contain; }
+.rc-cover:hover img { transform: none; }
+/* Thin single-scale drafting lines, without the overlapping plaid effect. */
+.fighter-cover, .model-frame {
+ background-color: #100c0b;
+ background-image: linear-gradient(rgba(214,74,50,.18) 1px, transparent 1px), linear-gradient(90deg, rgba(214,74,50,.18) 1px, transparent 1px);
+ background-size: 32px 32px;
+ background-position: center;
+}
+.particle-header { position: relative; isolation: isolate; }
+.particle-header > .header-particles { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+canvas.page-particles { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .header-particles, .page-particles { display: none; } }
+@media (max-width: 380px) { .engineering-intro h1 { font-size: 2.6rem; } }
